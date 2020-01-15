@@ -1,0 +1,20 @@
+ALTER PROC [dbo].[Schedules_Delete_ById] 
+
+				@Id INT
+AS
+
+/* ---------Test Code----------
+
+Declare @Id int = 1
+
+EXECUTE dbo.Schedules_Delete_ById
+		@Id
+
+
+--
+*/
+
+    BEGIN
+        DELETE FROM [dbo].[Schedules]
+        WHERE Id = @Id;
+    END;
