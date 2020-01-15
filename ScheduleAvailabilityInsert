@@ -1,0 +1,67 @@
+USE [C81_ScrubsData]
+GO
+/****** Object:  StoredProcedure [dbo].[ScheduleAvailability_Insert]    Script Date: 1/15/2020 9:32:17 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[ScheduleAvailability_Insert]
+		@ScheduleId int
+		,@DayOfWeek int
+		,@StartTime datetime2(7)
+		,@EndTime datetime2(7)
+		,@CreatedBy int
+		,@Id int OUTPUT
+
+/* --------Test Code--------
+
+	Declare @Id int = 0;
+
+	Declare @ScheduleId int = 4
+           ,@DayOfWeek int = 1
+           ,@StartTime datetime2(7) = '12:30:30'
+           ,@EndTime datetime2(7) = '14:30:00'
+           ,@CreatedBy int = 3
+			
+	Execute dbo.ScheduleAvailability_Insert
+								
+								@ScheduleId
+							   ,@DayOfWeek
+							   ,@StartTime
+							   ,@EndTime
+							   ,@CreatedBy
+								,@Id OUTPUT
+
+
+			Select *
+			From dbo.ScheduleAvailability
+			Where Id = @Id
+
+*/
+as
+
+
+BEGIN
+	INSERT INTO 
+				[dbo].[ScheduleAvailability]
+			   ([ScheduleId]
+			   ,[DayOfWeek]
+			   ,[StartTime]
+			   ,[EndTime]
+			   ,[CreatedBy]
+			   ,[ModifiedBy])
+		 VALUES
+			   (@ScheduleId
+			   ,@DayOfWeek
+			   ,@StartTime
+			   ,@EndTime
+			   ,@CreatedBy
+			   ,@CreatedBy)
+
+
+		SET 
+			@Id = SCOPE_IDENTITY()
+
+
+END
+
