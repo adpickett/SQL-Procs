@@ -1,0 +1,53 @@
+ALTER PROC [dbo].[UserProfiles_SelectAll]
+			@pageIndex int
+			,@pageSize int
+as
+/*
+
+DECLARE 
+	@pageIndex int = 2
+	,@pageSize int = 10
+
+
+EXECUTE [dbo].[UserProfiles_SelectAll]
+	@pageIndex 
+	,@pageSize
+
+*/
+
+BEGIN
+
+DECLARE @offset int = @pageIndex * @pageSize
+
+SELECT 
+	[up].[Id]
+	,[up].[UserId]
+	,[up].[FirstName]
+	,[up].[LastName]
+	,[up].[Mi]
+	,[up].[AvatarUrl]
+	,[u].[Email]
+	,[up].[CreatedBy]
+	,[up].[ModifiedBy]
+	,[up].[DateCreated]
+	,[up].[DateModified]
+	,[u].[UserStatusId]
+	,[r].[Name]
+	,TotalCount = COUNT(1) OVER()
+
+	FROM
+		[dbo].[UserProfiles] AS up
+	JOIN dbo.Users as u
+		ON u.[Id] = up.[UserId]
+	--LEFT JOIN dbo.Providers as p
+	--	ON p.[UserProfileId] = up.[Id]
+	INNER JOIN dbo.UserRoles as ur
+		ON ur.[UserId] = u.[Id]
+	JOIN dbo.Roles as r
+		ON r.[Id] = ur.[RoleId]
+	ORDER by
+		up.Id
+	OFFSET @offset Rows
+	Fetch Next @pageSize Rows ONLY
+
+END
