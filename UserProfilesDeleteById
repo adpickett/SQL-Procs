@@ -1,0 +1,27 @@
+ALTER PROC [dbo].[UserProfiles_Delete_ById]
+				@Id int
+
+as
+
+/*
+	Declare @Id int = 4
+
+	SELECT *
+	FROM dbo.UserProfiles
+	WHERE Id = @Id
+
+	Execute dbo.UserProfiles_Delete_ById @Id
+
+	SELECT *
+	FROM dbo.UserProfiles
+	WHERE Id = @Id
+
+*/
+
+
+BEGIN
+
+	DELETE FROM [dbo].[UserProfiles]
+	WHERE Id = @Id
+
+END
