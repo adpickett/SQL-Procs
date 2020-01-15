@@ -1,0 +1,66 @@
+ALTER PROC [dbo].[UserProfiles_Insert]
+				@UserId int
+				,@FirstName nvarchar(100)
+				,@LastName nvarchar(100)
+				,@Mi nvarchar(2)
+				,@AvatarUrl nvarchar(255)
+				,@CreatedBy int
+				,@Id int OUTPUT 
+				
+as
+/*
+
+	
+
+	DECLARE @UserId int = '123'
+		,@FirstName nvarchar(100) = 'Andrew' 
+		,@LastName nvarchar(100) = 'Pickett'
+		,@Mi nvarchar(2) = 'D'
+		,@AvatarUrl nvarchar(255) = 'https://media.treehugger.com/assets/images/2016/07/green-forest-trees.jpg.860x0_q70_crop-scale.jpg'
+		,@CreatedBY int = 4
+		,@Id int = 0
+		
+
+
+Execute dbo.UserProfiles_Insert
+			@UserId
+			,@FirstName
+			,@LastName
+			,@Mi
+			,@AvatarUrl
+			,@CreatedBy 
+			,@Id OUTPUT
+			
+
+
+SELECT * 
+	FROM dbo.UserProfiles
+	WHERE Id = @Id	
+*/
+BEGIN
+		
+	INSERT INTO [dbo].[UserProfiles]
+           ([UserId]
+           ,[FirstName]
+           ,[LastName]
+           ,[Mi]
+           ,[AvatarUrl]
+		   ,[CreatedBy]
+		   ,[ModifiedBy])
+
+     VALUES
+           (@UserId
+           ,@FirstName
+           ,@LastName
+           ,@Mi
+		   ,@AvatarUrl
+		   ,@CreatedBy
+		   ,@CreatedBy) /* upon initial creation, the Creator
+							and Modifier are the same person */
+           
+	SET @Id = SCOPE_IDENTITY()
+
+	
+
+END
+
