@@ -1,0 +1,54 @@
+ALTER PROC [dbo].[UserProfiles_Update]
+				@UserId int
+				,@FirstName nvarchar(100)
+				,@LastName nvarchar(100)
+				,@Mi nvarchar(2)
+				,@AvatarUrl nvarchar(255)
+				,@Id int
+				,@ModifiedBy int
+
+as
+/* 
+	DECLARE @UserId int = 66
+			,@FirstName nvarchar(100) = 'Loser' 
+			,@LastName nvarchar(100) = 'Pickett'
+			,@Mi nvarchar(2) = 'F'
+			,@AvatarUrl nvarchar(255) = 'https://media.treehugger.com/assets/images/2016/07/green-forest-trees.jpg.860x0_q70_crop-scale.jpg'
+			,@Id int = 4
+			,@ModifiedBy int = 69
+
+
+	SELECT * 
+	FROM dbo.UserProfiles
+	WHERE Id = @Id	
+
+	Execute dbo.UserProfiles_Update
+				@UserId
+				,@FirstName
+				,@LastName
+				,@Mi
+				,@AvatarUrl
+				,@Id 
+				,@ModifiedBy
+
+	SELECT * 
+	FROM dbo.UserProfiles
+	WHERE Id = @Id	
+
+*/
+
+BEGIN
+
+	DECLARE @DateModified datetime2(7) = getutcdate();
+
+	UPDATE [dbo].[UserProfiles]
+		   SET [UserId] = @UserId
+			  ,[FirstName] = @FirstName
+			  ,[LastName] = @LastName
+			  ,[Mi] = @Mi
+			  ,[AvatarUrl] = @AvatarUrl
+			  ,[ModifiedBy] = @ModifiedBy
+			  ,[DateModified] = GETUTCDATE()
+		 WHERE Id = @Id
+
+END
